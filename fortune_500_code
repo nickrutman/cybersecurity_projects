@@ -1,0 +1,38 @@
+select *
+from fortune_companies;
+
+-- 1. case statement
+select company_name, paid_time_off_days,
+case when paid_time_off_days>20 then "High PTO"
+when paid_time_off_days>15 then "Medium PTO"
+else "Low PTO"
+end as PTO_level
+from fortune_companies
+order by paid_time_off_days desc;
+
+-- 2. having statement
+select industry, avg(revenue) as avg_revenue
+from fortune_companies
+group by industry
+having avg_revenue>100;
+
+-- 3. and statement
+select company_name, 
+paid_time_off_days,
+maternity_leave_weeks
+from fortune_companies
+where paid_time_off_days>=20
+and maternity_leave_weeks>=12
+order by paid_time_off_days desc;
+
+-- 4. or statement
+select industry, employees, revenue
+from fortune_companies
+where employees>=100000
+or revenue>=400
+order by industry desc;
+
+-- 5. count statement
+select count(company_name) as companies_with_healthcare
+from fortune_companies
+where healthcare_benefits=1;
